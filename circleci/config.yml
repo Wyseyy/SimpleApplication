@@ -9,7 +9,13 @@ workflows:
             branches:
               only:
                 - main
-
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - build
 
 jobs:
   build:
@@ -33,3 +39,14 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+
+  deploy:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "your-circleci-ssh-key-fingerprint"
+      - run:
+          name: Deploy Application
+          command: ssh ubuntu@your-ec2-public-ip "cd /home/ubuntu/app && git pull origin main && npm install && pm2 restart all"
