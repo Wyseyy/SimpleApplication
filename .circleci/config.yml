@@ -46,4 +46,4 @@ jobs:
             - "SHA256:7998/H4uK/TVxlPisNG8EmEUZv/RgPOXcaiddcHq3Ac"
       - run:
           name: Deploy Application
-          command: ssh ubuntu@ubuntu@34.194.249.173 "cd /home/ubuntu/app && git pull origin main && npm install && pm2 restart all"
+          command: ssh -o StrictHostKeyChecking=no ubuntu@ubuntu@34.194.249.173 "cd /home/ubuntu/app && git pull origin main && npm install && pm2 restart all"
