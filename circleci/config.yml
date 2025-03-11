@@ -9,13 +9,7 @@ workflows:
             branches:
               only:
                 - main
-      - deploy:
-          filters:
-            branches:
-              only:
-                - main
-          requires:
-            - build
+
 
 jobs:
   build:
@@ -39,11 +33,3 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-
-  deploy:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - run:
-          name: deploy-application
-          command: ssh -o StrictHostKeyChecking=no $EWYSE_EC2@$EWYSE_PUBLIC_DNS "export SERVER=\"$SERVER\"; export PRIVATE_KEY=\"$PRIVATE_KEY\"; rm -rf ExampleApplication/; git clone https://github.com/Wyseyy/ExampleApplication.git; bash ExampleApplication/deploy.sh"
