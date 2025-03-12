@@ -43,4 +43,4 @@ jobs:
     steps:
       - run:
           name: deploy-application
-          command: ssh -o StrictHostKeyChecking=no $EWYSE_CA@$CA_PUBLIC_IP "export SERVER=\"$SERVER\"; export PRIVATE_KEY=\"$PRIVATE_KEY\"; rm -rf SimpleApplication/; git clone https://github.com/Wyseyy/SimpleApplication.git; bash SimpleApplication/deploy.sh"
+          command: ssh -o StrictHostKeyChecking=no $EWYSE_CA@$EWYSE_CA_PUBLICIP "export SERVER=\"$SERVER\"; export PRIVATE_KEY=\"$PRIVATE_KEY\"; rm -rf SimpleApplication/; git clone https://github.com/Wyseyy/SimpleApplication.git; bash SimpleApplication/deploy.sh"
