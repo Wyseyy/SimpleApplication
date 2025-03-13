@@ -26,7 +26,7 @@ jobs:
       - checkout
       - run: 
           name: update-npm
-          command: 'sudo npm install -g npm@11.2.0'
+          command: sudo npm install -g npm@11.2.0
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
@@ -42,12 +42,14 @@ jobs:
       - image: circleci/node:latest
     steps:
       - run:
-        name: deploy-application
-        command: |
-          ssh -o StrictHostKeyChecking=no $EWYSE_CA@$EWYSE_CA_PUBLICIP << 'EOF'
-          export SERVER="$SERVER"
-          export PRIVATE_KEY="$PRIVATE_KEY"
-          rm -rf SimpleApplication/
-          git clone https://github.com/Wyseyy/SimpleApplication.git
-          cd SimpleApplication
-          bash deploy.sh
+          name: deploy-application
+          command: |
+            ssh -o StrictHostKeyChecking=no $EWYSE_CA@$EWYSE_CA_PUBLICIP << 'EOF'
+            export SERVER="$SERVER"
+            export PRIVATE_KEY="$PRIVATE_KEY"
+            rm -rf SimpleApplication/
+            git clone https://github.com/Wyseyy/SimpleApplication.git
+            cd SimpleApplication
+            bash deploy.sh
+            EOF
+
